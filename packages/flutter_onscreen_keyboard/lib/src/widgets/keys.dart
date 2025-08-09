@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onscreen_keyboard/flutter_onscreen_keyboard.dart';
-import 'package:flutter_onscreen_keyboard/src/utils/extensions.dart';
 
 /// A widget that visually represents a [TextKey] on the onscreen keyboard.
 ///
