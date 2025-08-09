@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_onscreen_keyboard/flutter_onscreen_keyboard.dart';
 import 'package:flutter_onscreen_keyboard/src/constants/action_key_type.dart';
+import 'package:flutter_onscreen_keyboard/src/raw_onscreen_keyboard.dart';
 import 'package:flutter_onscreen_keyboard/src/theme/onscreen_keyboard_theme.dart';
 import 'package:flutter_onscreen_keyboard/src/types.dart';
 import 'package:flutter_onscreen_keyboard/src/utils/extensions.dart';
@@ -30,6 +31,8 @@ class OnscreenKeyboard extends StatefulWidget {
     this.aspectRatio,
     this.showControlBar = true,
     this.buildControlBarActions,
+    this.textKeyBuilder,
+    this.actionKeyBuilder,
   });
 
   /// The main application child widget.
@@ -64,6 +67,12 @@ class OnscreenKeyboard extends StatefulWidget {
 
   /// {@macro controlBar.actions}
   final ActionsBuilder? buildControlBarActions;
+
+  /// A builder function that allows customizing the rendering of [TextKey] widgets.
+  final TextKeyBuilder? textKeyBuilder;
+
+  /// A builder function that allows customizing the rendering of [ActionKey] widgets.
+  final ActionKeyBuilder? actionKeyBuilder;
 
   /// A builder to wrap the app with [OnscreenKeyboard].
   ///
@@ -110,6 +119,8 @@ class OnscreenKeyboard extends StatefulWidget {
     Widget? dragHandle,
     double? aspectRatio,
     ActionsBuilder? buildControlBarActions,
+    TextKeyBuilder? textKeyBuilder,
+    ActionKeyBuilder? actionKeyBuilder,
   }) => (BuildContext context, Widget? child) {
     return OnscreenKeyboard(
       theme: theme,
@@ -119,6 +130,8 @@ class OnscreenKeyboard extends StatefulWidget {
       dragHandle: dragHandle,
       aspectRatio: aspectRatio,
       buildControlBarActions: buildControlBarActions,
+      textKeyBuilder: textKeyBuilder,
+      actionKeyBuilder: actionKeyBuilder,
       child: child!,
     );
   };
@@ -513,6 +526,10 @@ class _OnscreenKeyboardState extends State<OnscreenKeyboard>
                                               pressedActionKeys:
                                                   _pressedActionKeys,
                                               showSecondary: _showSecondary,
+                                              textKeyBuilder:
+                                                  widget.textKeyBuilder,
+                                              actionKeyBuilder:
+                                                  widget.actionKeyBuilder,
                                             ),
                                           ],
                                         ),
