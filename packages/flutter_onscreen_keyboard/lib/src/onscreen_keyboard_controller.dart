@@ -49,4 +49,11 @@ abstract interface class OnscreenKeyboardController {
   /// Calling this method switches the current mode to the next one,
   /// wrapping around to the first mode when the end is reached.
   void switchMode();
+
+  /// Cycles to the next keyboard layout in the order they are defined.
+  ///
+  /// Keyboard layouts are defined in the [KeyboardLayout.layouts] map.
+  /// Calling this method switches the current layout to the next one,
+  /// wrapping around to the first layout when the end is reached.
+  void switchLayout();
 }

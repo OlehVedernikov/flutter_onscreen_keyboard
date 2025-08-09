@@ -19,4 +19,7 @@ abstract class ActionKeyType {
 
   /// Identifier for the Shift key.
   static const shift = 'shift';
+
+  /// Identifier for the Layout Switch key.
+  static const layoutSwitch = 'layout_switch';
 }
