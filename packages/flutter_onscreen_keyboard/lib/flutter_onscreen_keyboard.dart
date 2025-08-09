@@ -25,6 +25,7 @@ import 'package:flutter_onscreen_keyboard/flutter_onscreen_keyboard.dart'
         OnscreenKeyboardTextField,
         RawOnscreenKeyboard;
 
+export 'src/constants/action_key_type.dart';
 export 'src/layouts/layouts.dart';
 export 'src/models/keys.dart';
 export 'src/models/layout.dart';
@@ -35,3 +36,4 @@ export 'src/onscreen_keyboard.dart'
         OnscreenKeyboardTextField;
 export 'src/raw_onscreen_keyboard.dart' show RawOnscreenKeyboard;
 export 'src/theme/onscreen_keyboard_theme_data.dart';
+export 'src/utils/extensions.dart';

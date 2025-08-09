@@ -6,11 +6,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_onscreen_keyboard/flutter_onscreen_keyboard.dart';
-import 'package:flutter_onscreen_keyboard/src/constants/action_key_type.dart';
 import 'package:flutter_onscreen_keyboard/src/raw_onscreen_keyboard.dart';
 import 'package:flutter_onscreen_keyboard/src/theme/onscreen_keyboard_theme.dart';
 import 'package:flutter_onscreen_keyboard/src/types.dart';
-import 'package:flutter_onscreen_keyboard/src/utils/extensions.dart';
 
 part 'onscreen_keyboard_controller.dart';
 part 'onscreen_keyboard_text_field.dart';
@@ -24,6 +22,7 @@ class OnscreenKeyboard extends StatefulWidget {
   const OnscreenKeyboard({
     required this.child,
     super.key,
+    this.layouts,
     this.layout,
     this.theme,
     this.width,
@@ -45,6 +44,14 @@ class OnscreenKeyboard extends StatefulWidget {
   /// for Android/iOS/Fuchsia and a [DesktopKeyboardLayout] for
   /// macOS/Windows/Linux.
   final KeyboardLayout? layout;
+
+  /// The layouts configuration for the keyboard.
+  ///
+  /// If not provided, a default layout will be selected automatically
+  /// based on the current [defaultTargetPlatform] — a [MobileKeyboardLayout]
+  /// for Android/iOS/Fuchsia and a [DesktopKeyboardLayout] for
+  /// macOS/Windows/Linux.
+  final List<KeyboardLayout>? layouts;
 
   /// Custom theme for the on-screen keyboard UI.
   ///
@@ -114,6 +121,7 @@ class OnscreenKeyboard extends StatefulWidget {
   static TransitionBuilder builder({
     OnscreenKeyboardThemeData? theme,
     KeyboardLayout? layout,
+    List<KeyboardLayout>? layouts,
     WidthGetter? width,
     bool showControlBar = true,
     Widget? dragHandle,
@@ -125,6 +133,7 @@ class OnscreenKeyboard extends StatefulWidget {
     return OnscreenKeyboard(
       theme: theme,
       layout: layout,
+      layouts: layouts,
       width: width,
       showControlBar: showControlBar,
       dragHandle: dragHandle,
@@ -278,6 +287,8 @@ class _OnscreenKeyboardState extends State<OnscreenKeyboard>
           break;
         case ActionKeyType.shift:
           break;
+        case ActionKeyType.layoutSwitch:
+          switchLayout();
       }
     }
   }
@@ -359,8 +370,12 @@ class _OnscreenKeyboardState extends State<OnscreenKeyboard>
     TargetPlatform.linux => const DesktopKeyboardLayout(),
   };
 
+  /// The resolved layouts used by the keyboard.
+  late final List<KeyboardLayout> _layouts =
+      widget.layouts ?? [_getDefaultLayout()];
+
   /// The resolved layout used by the keyboard.
-  late final KeyboardLayout _layout = widget.layout ?? _getDefaultLayout();
+  late KeyboardLayout _layout = widget.layout ?? _getDefaultLayout();
 
   /// The current active keyboard mode (e.g., "alphabetic", "symbols").
   ///
@@ -372,6 +387,17 @@ class _OnscreenKeyboardState extends State<OnscreenKeyboard>
     final modes = _layout.modes.keys.toList();
     final i = modes.indexOf(_mode);
     setState(() => _mode = modes[(i + 1) % modes.length]);
+  }
+
+  @override
+  void switchLayout() {
+    if (_layouts.length <= 1) return;
+
+    final i = _layouts.indexOf(_layout);
+    setState(() {
+      _layout = _layouts[(i + 1) % _layouts.length];
+      _mode = _layout.modes.keys.first;
+    });
   }
 
   final GlobalKey _keyboardKey = GlobalKey();

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:example/layouts/uk_desktop_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_onscreen_keyboard/flutter_onscreen_keyboard.dart';
 
@@ -12,10 +13,17 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final layouts = [
+      const UkDesktopKeyboardLayout(),
+      const DesktopKeyboardLayout(),
+    ];
+
     return MaterialApp(
       // use OnscreenKeyboard.builder on MaterialApp.builder
       builder: OnscreenKeyboard.builder(
         width: (context) => MediaQuery.sizeOf(context).width / 2,
+        layout: layouts.first,
+        layouts: layouts,
         // ...more options
       ),
 

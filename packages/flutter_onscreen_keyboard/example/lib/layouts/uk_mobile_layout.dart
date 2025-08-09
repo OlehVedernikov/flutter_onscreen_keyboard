@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onscreen_keyboard/flutter_onscreen_keyboard.dart';
-import 'package:flutter_onscreen_keyboard/src/utils/extensions.dart';
 
 /// A predefined [KeyboardLayout] implementation optimized for mobile devices.
 ///
@@ -8,9 +7,9 @@ import 'package:flutter_onscreen_keyboard/src/utils/extensions.dart';
 /// including alphabets and symbols. It handles dynamic layout switching
 /// (e.g., switching between letters and symbols) using a
 /// `mode_switch` action key.
-class MobileKeyboardLayout extends KeyboardLayout {
-  /// Creates an instance of [MobileKeyboardLayout].
-  const MobileKeyboardLayout();
+class UkMobileKeyboardLayout extends KeyboardLayout {
+  /// Creates an instance of [UkMobileKeyboardLayout].
+  const UkMobileKeyboardLayout();
 
   @override
   double get aspectRatio => 4 / 3;
@@ -55,20 +54,23 @@ class MobileKeyboardLayout extends KeyboardLayout {
       ('0', ')'),
     ]),
 
-    _buildRow(['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p']),
+    _buildRow(['й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ї']),
 
     KeyboardRow(
       leading: const Expanded(flex: 10, child: SizedBox.shrink()),
       keys: [
-        'a',
-        's',
-        'd',
-        'f',
-        'g',
-        'h',
-        'j',
-        'k',
-        'l',
+        'ф',
+        'і',
+        'в',
+        'а',
+        'п',
+        'р',
+        'о',
+        'л',
+        'д',
+        'ж',
+        'є',
+        'ґ',
       ].map(_buildKey).toList(),
       trailing: const Expanded(flex: 10, child: SizedBox.shrink()),
     ),
@@ -81,7 +83,7 @@ class MobileKeyboardLayout extends KeyboardLayout {
           flex: 30,
           canHold: true,
         ),
-        ...['z', 'x', 'c', 'v', 'b', 'n', 'm'].map(_buildKey),
+        ...['я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю'].map(_buildKey),
         const OnscreenKeyboardKey.action(
           name: ActionKeyType.backspace,
           child: Icon(Icons.backspace_outlined),

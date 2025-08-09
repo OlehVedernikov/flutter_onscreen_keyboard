@@ -7,9 +7,9 @@ import 'package:flutter_onscreen_keyboard/flutter_onscreen_keyboard.dart';
 /// and common action keys like backspace, tab, capslock, enter, and shift.
 ///
 /// Use this layout with [OnscreenKeyboard] for a desktop-style experience.
-class DesktopKeyboardLayout extends KeyboardLayout {
+class UkDesktopKeyboardLayout extends KeyboardLayout {
   /// Creates a [DesktopKeyboardLayout] instance.
-  const DesktopKeyboardLayout();
+  const UkDesktopKeyboardLayout();
 
   @override
   double get aspectRatio => 5 / 2;
@@ -49,7 +49,20 @@ class DesktopKeyboardLayout extends KeyboardLayout {
           child: Icon(Icons.keyboard_tab_rounded),
           flex: 25,
         ),
-        for (final c in ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'])
+        for (final c in [
+          'й',
+          'ц',
+          'у',
+          'к',
+          'е',
+          'н',
+          'г',
+          'ш',
+          'щ',
+          'з',
+          'х',
+          'ї',
+        ])
           OnscreenKeyboardKey.text(primary: c),
         const OnscreenKeyboardKey.text(primary: '[', secondary: '{'),
         const OnscreenKeyboardKey.text(primary: ']', secondary: '}'),
@@ -64,7 +77,20 @@ class DesktopKeyboardLayout extends KeyboardLayout {
           flex: 30,
           canHold: true,
         ),
-        for (final c in ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'])
+        for (final c in [
+          'ф',
+          'і',
+          'в',
+          'а',
+          'п',
+          'р',
+          'о',
+          'л',
+          'д',
+          'ж',
+          'є',
+          'ґ',
+        ])
           OnscreenKeyboardKey.text(primary: c),
         const OnscreenKeyboardKey.text(primary: ';', secondary: ':'),
         const OnscreenKeyboardKey.text(primary: "'", secondary: '"'),
@@ -78,18 +104,18 @@ class DesktopKeyboardLayout extends KeyboardLayout {
     KeyboardRow(
       keys: [
         const OnscreenKeyboardKey.action(
-          name: ActionKeyType.shift,
-          child: Icon(Icons.arrow_upward_rounded),
+          name: ActionKeyType.layoutSwitch,
+          child: Icon(Icons.language),
           flex: 35,
         ),
-        for (final c in ['z', 'x', 'c', 'v', 'b', 'n', 'm'])
+        for (final c in ['я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю'])
           OnscreenKeyboardKey.text(primary: c),
         const OnscreenKeyboardKey.text(primary: ',', secondary: '<'),
         const OnscreenKeyboardKey.text(primary: '.', secondary: '>'),
         const OnscreenKeyboardKey.text(primary: '/', secondary: '?'),
         const OnscreenKeyboardKey.action(
-          name: ActionKeyType.shift,
-          child: Icon(Icons.arrow_upward_rounded),
+          name: ActionKeyType.layoutSwitch,
+          child: Icon(Icons.language_rounded),
           flex: 35,
         ),
       ],
